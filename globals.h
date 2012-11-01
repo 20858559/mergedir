@@ -66,8 +66,8 @@ extern "C" {
     myFilesInfos *filesToCopy;
     //files to merge
     myFilesToMerge *filesToMerge;
-        
-    
+    //baseDirectory of the input directory currently being explored   
+    char* currentDirectory ;
         
 
 

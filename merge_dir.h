@@ -19,7 +19,9 @@ extern "C" {
     /*Main function of our program*/
     void mergeDirectories();
     /*Get the list of files to process*/
-    void buildListOfInodesToCopy(char *dirName);
+    void buildListOfInodesToCopy(char *dirName,int isNew);
+    /*Place the file in the right array*/
+    void placeFile(char *filePath,ino_t fileINode);
     
     
 
