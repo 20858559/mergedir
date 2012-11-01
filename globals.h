@@ -69,11 +69,17 @@ extern "C" {
     //baseDirectory of the input directory currently being explored   
     char* currentDirectory ;
         
-typedef struct compareFile{
+    //Compare File size for -l
+     typedef struct compareFile{
 	unsigned int st_ino;
 	unsigned int st_size;
+     }compareFile_t;
+
+     ///Compare Modification time for -m
+     typedef struct compareModi{
+	unsigned int st_ino;
 	unsigned int st_mtime;
-}lcompareFile_t;
+     }compareModi_t;
 
 
 #ifdef	__cplusplus
