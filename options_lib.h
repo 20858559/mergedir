@@ -54,7 +54,8 @@ void  compareModificationSize (struct stat file1, struct stat file2  );
 			else if(diff <0){
                                     
                         filetocopy = modifile1
-					
+				
+                                
 			}
 			else{ 
 			//files are the same just copy first file
