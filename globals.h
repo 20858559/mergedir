@@ -66,8 +66,9 @@ extern "C" {
     //files to merge
     filesToMerge_t* myFilesToMerge;
     int nbFilesToMerge;
-    //baseDirectory of the input directory currently being explored   
+    //baseDirectory and currentDirectory of the input directory currently being explored   
     char* currentDirectory ;
+    char* baseDirectory ;
         
 
 
