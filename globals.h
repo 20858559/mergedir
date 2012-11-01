@@ -45,27 +45,27 @@ extern "C" {
     /**
      * Inodes + filepath
      */
-    struct fileInfos_t{
+    typedef struct fileInfos {
         ino_t fileInode;
         char * filePath;
-    };
+    }fileInfos_t;
     
     /**
      * List of inodes + filepath
      */
-    struct filesToMerge_t{
-        ino_t *fileInode;
-        char **filePath;
-    };
-    
-    typedef struct fileInfos_t myFilesInfos;
-    typedef struct filesToMerge_t myFilesToMerge;
+    typedef struct filesToMerge{
+        fileInfos_t* files;
+        int nbFiles;
+    }filesToMerge_t;
+ 
    
     /*Global arrays of structs*/
     //files to copy
-    myFilesInfos *filesToCopy;
+    fileInfos_t *myfilesToCopy;
+    int nbFilesToCopy;
     //files to merge
-    myFilesToMerge *filesToMerge;
+    filesToMerge_t* myFilesToMerge;
+    int nbFilesToMerge;
     //baseDirectory of the input directory currently being explored   
     char* currentDirectory ;
         

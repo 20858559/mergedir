@@ -32,6 +32,8 @@ void displayUsage();
  * @return 
  */
 
+void print_debug();
+
 /**
  * Main function
  */
@@ -40,6 +42,14 @@ int main(int argc, char** argv) {
     /*Initialize our application*/
     configureModes(argc,argv);
     mergeDirectories();
+    
+    
+    //free globals
+    //print debug
+    
+    print_debug();
+    free(myfilesToCopy);
+    free(myFilesToMerge);
     
     return (EXIT_SUCCESS);
 }
@@ -194,7 +204,7 @@ void configureModes(int argc, char**argv){
 }
 
 
-void displayUsage( void ){
+void displayUsage( ){
     puts( "mergedirs [options] indirectory1 [indirectory2 ....] outdirectory " );
     puts( "List of options: ");
     puts("-l: ");
@@ -212,3 +222,30 @@ void displayUsage( void ){
     exit( EXIT_FAILURE );
 }
 
+
+
+void print_debug(){
+    printf("\n=====DEBUG OUTPUT OF FILES TO COPY====\n");
+    if(nbFilesToCopy>0){
+        for(int i=0;i<nbFilesToCopy;++i){
+            printf("\n-%s\n",myfilesToCopy[i].filePath);
+        }
+    }
+    else{
+        puts ("files to copy empty");
+    }
+    printf("\n=====END DEBUG OUTPUT OF FILES TO COPY====\n");
+    
+     printf("\n=====DEBUG OUTPUT OF FILES TO MERGE====\n");
+    if(nbFilesToMerge>0){
+        for(int i=0;i<nbFilesToMerge;++i){
+            for(int j=0;j<myFilesToMerge[i].nbFiles;++j){
+                printf("\n-%s |%lu \n",myFilesToMerge[i].files[j].filePath,(unsigned long)myFilesToMerge[i].files[j].fileInode);
+            }
+        }
+    }
+    else{
+        puts ("MERGE to copy empty");
+    }
+    printf("\n=====END DEBUG OUTPUT OF FILES TO MERGE====\n");
+}
