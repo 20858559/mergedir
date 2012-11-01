@@ -21,9 +21,13 @@ extern "C" {
     /*Get the list of files to process*/
     void buildListOfInodesToCopy(char *dirName,int isNew);
     /*Place the file in the right array*/
-    void placeFile(char *filePath,ino_t fileINode);
-    
-    
+    int placeFile(char *filePath,ino_t fileINode);
+    /*Copy file info struct to array*/
+    void copyInfoStructToArray(fileInfos_t f);
+    /*Copy merge file struct to array and remove it from info array*/
+    void copySingleMergeStructToArray(fileInfos_t f,fileInfos_t f_old);
+    /**/
+    void copyArrayMergeStructToArray(int i,fileInfos_t f);
 
 
 #ifdef	__cplusplus
