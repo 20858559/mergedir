@@ -20,6 +20,7 @@ extern "C" {
 #include <stdlib.h>
 #include <getopt.h>
 #include <unistd.h>
+#include <string.h>
 
 
 /**
@@ -31,7 +32,6 @@ extern "C" {
  * Start of project headers
  */
 
-#include "globals.h"
 #include "options_lib.h"
 #include "merge_dir.h"
 

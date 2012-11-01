@@ -5,7 +5,6 @@
  * Created on November 1, 2012, 3:48 PM
  */
 
-#include "globals.h"
 #include "log.h"
 #include "file_headers.h"
 
@@ -15,11 +14,15 @@
 #ifdef	__cplusplus
 extern "C" {
 #endif
+    
+
+    
 
 /**
  * check if two file_path/file_name are identifical
  */
 int comparePath(char* path1, char* path2) ;
+
 
 /**
  * If -l is chosen then the largest file will be copied to the output directory

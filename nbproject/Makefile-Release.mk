@@ -36,6 +36,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/log.o \
+	${OBJECTDIR}/globals.o \
 	${OBJECTDIR}/file_summary.o \
 	${OBJECTDIR}/options_lib.o \
 	${OBJECTDIR}/merge_dir.o \
@@ -61,16 +62,21 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mergedir
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mergedir_home
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mergedir: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mergedir_home: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mergedir ${OBJECTFILES} ${LDLIBSOPTIONS} 
+	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mergedir_home ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/log.o: log.c 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.c) -O2 -std=c99 -MMD -MP -MF $@.d -o ${OBJECTDIR}/log.o log.c
+
+${OBJECTDIR}/globals.o: globals.c 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.c) -O2 -std=c99 -MMD -MP -MF $@.d -o ${OBJECTDIR}/globals.o globals.c
 
 ${OBJECTDIR}/file_summary.o: file_summary.c 
 	${MKDIR} -p ${OBJECTDIR}
@@ -103,7 +109,7 @@ ${OBJECTDIR}/general_lib.o: general_lib.c
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mergedir
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mergedir_home
 
 # Subprojects
 .clean-subprojects:

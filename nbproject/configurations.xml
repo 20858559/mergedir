@@ -22,6 +22,7 @@
                    projectFiles="true">
       <itemPath>file_summary.c</itemPath>
       <itemPath>general_lib.c</itemPath>
+      <itemPath>globals.c</itemPath>
       <itemPath>log.c</itemPath>
       <itemPath>main.c</itemPath>
       <itemPath>merge_dir.c</itemPath>

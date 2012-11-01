@@ -12,10 +12,16 @@
 extern "C" {
 #endif
 
-#include "file_headers.h"
-#include "globals.h"
-#include "sys_headers.h"
-#include "log.h"
+    #include "globals.h"
+    #include "sys_headers.h"
+    #include "log.h"
+    
+    /*Main function of our program*/
+    void mergeDirectories();
+    /*Get the list of files to process*/
+    void buildListOfInodesToCopy(char *dirName);
+    
+    
 
 
 #ifdef	__cplusplus

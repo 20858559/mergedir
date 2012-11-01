@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=mergedir
+PROJECTNAME=mergedir_home
 
 # Active Configuration
 DEFAULTCONF=Debug

@@ -9,19 +9,19 @@ CND_DISTDIR=dist
 # Debug configuration
 CND_PLATFORM_Debug=GNU-MacOSX
 CND_ARTIFACT_DIR_Debug=dist/Debug/GNU-MacOSX
-CND_ARTIFACT_NAME_Debug=mergedir
-CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-MacOSX/mergedir
+CND_ARTIFACT_NAME_Debug=mergedir_home
+CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-MacOSX/mergedir_home
 CND_PACKAGE_DIR_Debug=dist/Debug/GNU-MacOSX/package
-CND_PACKAGE_NAME_Debug=mergedir.tar
-CND_PACKAGE_PATH_Debug=dist/Debug/GNU-MacOSX/package/mergedir.tar
+CND_PACKAGE_NAME_Debug=mergedirhome.tar
+CND_PACKAGE_PATH_Debug=dist/Debug/GNU-MacOSX/package/mergedirhome.tar
 # Release configuration
 CND_PLATFORM_Release=GNU-MacOSX
 CND_ARTIFACT_DIR_Release=dist/Release/GNU-MacOSX
-CND_ARTIFACT_NAME_Release=mergedir
-CND_ARTIFACT_PATH_Release=dist/Release/GNU-MacOSX/mergedir
+CND_ARTIFACT_NAME_Release=mergedir_home
+CND_ARTIFACT_PATH_Release=dist/Release/GNU-MacOSX/mergedir_home
 CND_PACKAGE_DIR_Release=dist/Release/GNU-MacOSX/package
-CND_PACKAGE_NAME_Release=mergedir.tar
-CND_PACKAGE_PATH_Release=dist/Release/GNU-MacOSX/package/mergedir.tar
+CND_PACKAGE_NAME_Release=mergedirhome.tar
+CND_PACKAGE_PATH_Release=dist/Release/GNU-MacOSX/package/mergedirhome.tar
 #
 # include compiler specific variables
 #
