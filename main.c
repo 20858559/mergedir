@@ -6,33 +6,9 @@
  */
 
 /**
- * Start of system includes
+ * List of the project headers
  */
-#include <stdio.h>
-#include <stdlib.h>
-#include <getopt.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <ctype.h>
-#include <unistd.h>
-#include <dirent.h>
-/**
- * End of system includes
- */
-
-
-/**
- * Start of project headers
- */
-#include "file_summary.h"
-#include "globals.h"
-#include "options_lib.h"
-#include "log.h"
-#include "scan_dir.h"
-
-/**
- * End of project headers
- */
+#include "sys_headers.h"
 
 /**
  * Main function

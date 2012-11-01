@@ -6,6 +6,8 @@
  */
 
 #include "globals.h"
+#include "log.h"
+#include "file_headers.h"
 
 #ifndef OPTIONS_LIB_H
 #define	OPTIONS_LIB_H
@@ -22,11 +24,11 @@ int comparePath(char* path1, char* path2) ;
 /**
  * If -l is chosen then the largest file will be copied to the output directory
  */
-void compareFileSize () ;
+void compareFileSize (struct stat file1, struct stat file2) ;
 // If -m is chosen then the file with the most-recent modification-time should be copied to the output directory
-void  compareModificationSize ( );
+void  compareModificationSize (struct stat file1, struct stat file2  );
 // If -v then enable verbose, and report (to stdout) the full pathname of each file being copied to the output directory
-void verbose ( ) ;
+void verbose () ;
 // If -i then a subdirectory's name contains the indicated pattern, then it should be ignored.
 void pattern ( ) ;
 

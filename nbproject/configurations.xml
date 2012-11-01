@@ -4,11 +4,14 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>file_headers.h</itemPath>
       <itemPath>file_summary.h</itemPath>
+      <itemPath>general_lib.h</itemPath>
       <itemPath>globals.h</itemPath>
       <itemPath>log.h</itemPath>
+      <itemPath>merge_dir.h</itemPath>
       <itemPath>options_lib.h</itemPath>
-      <itemPath>scan_dir.h</itemPath>
+      <itemPath>sys_headers.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -18,10 +21,11 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>file_summary.c</itemPath>
+      <itemPath>general_lib.c</itemPath>
       <itemPath>log.c</itemPath>
       <itemPath>main.c</itemPath>
+      <itemPath>merge_dir.c</itemPath>
       <itemPath>options_lib.c</itemPath>
-      <itemPath>scan_dir.c</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -44,7 +48,7 @@
       </toolsSet>
       <compileType>
         <cTool>
-          <commandLine>-std=c99</commandLine>
+          <standard>3</standard>
           <warningLevel>3</warningLevel>
         </cTool>
       </compileType>
@@ -57,6 +61,7 @@
       <compileType>
         <cTool>
           <developmentMode>5</developmentMode>
+          <standard>3</standard>
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
