@@ -70,6 +70,17 @@ extern "C" {
     char* currentDirectory ;
     char* baseDirectory ;
         
+    //Compare File size for -l
+     typedef struct compareFile{
+	unsigned int st_ino;
+	unsigned int st_size;
+     }compareFile_t;
+
+     ///Compare Modification time for -m
+     typedef struct compareModi{
+	unsigned int st_ino;
+	unsigned int st_mtime;
+     }compareModi_t;
 
 
 #ifdef	__cplusplus
