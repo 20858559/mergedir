@@ -69,6 +69,11 @@ extern "C" {
     //baseDirectory of the input directory currently being explored   
     char* currentDirectory ;
         
+typedef struct compareFile{
+	unsigned int st_ino;
+	unsigned int st_size;
+	unsigned int st_mtime;
+}lcompareFile_t;
 
 
 #ifdef	__cplusplus
