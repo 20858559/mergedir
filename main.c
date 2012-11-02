@@ -13,6 +13,7 @@
 #include "sys_headers.h"
 #include "globals.h"
 #include "file_headers.h"
+#include "general_lib.h"
 
 /**
  * Configure the application mode
@@ -198,7 +199,7 @@ void configureModes(int argc, char**argv){
         }
         else{
             //new
-            mkdir(globalArgs.outDirName, 0751);
+            mkdirp(globalArgs.outDirName, 0751);
         }
                 
         
