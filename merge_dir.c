@@ -264,33 +264,35 @@ void merge(){
  * Just iterates over our array of files to copy
  */
 void copyFiles(){
-    for(int i=0;i<nbFilesToCopy;++i){
-        //detect the null entries
-        if(myfilesToCopy[i].filePath!=NULL){
-            
-            char* fullPath = malloc(strlen(myfilesToCopy[i].baseDir)+4+strlen(myfilesToCopy[i].filePath));
-            int length = sprintf(fullPath,"./%s/%s",myfilesToCopy[i].baseDir,myfilesToCopy[i].filePath); 
-            char* outputPath = malloc(strlen(globalArgs.outDirName)+1+strlen(myfilesToCopy[i].filePath));
-            int length2 = sprintf(outputPath,"%s/%s",globalArgs.outDirName,myfilesToCopy[i].filePath);
-            char* dirToCreate = malloc(strlen(globalArgs.outDirName)+1+strlen(myfilesToCopy[i].dirPath));
-            int length3 = sprintf(dirToCreate,"%s/%s",globalArgs.outDirName,myfilesToCopy[i].dirPath);
-            //printf("\nCopying %s into %s\n",fullPath,outputPath);
-            if(globalArgs.verbosity == TRUE){
-                //should check length..
+    if(globalArgs.compareMode != MODE_SHOW_CONFLICTS ){
+        for(int i=0;i<nbFilesToCopy;++i){
+            //detect the null entries
+            if(myfilesToCopy[i].filePath!=NULL){
+
+                char* fullPath = malloc(strlen(myfilesToCopy[i].baseDir)+4+strlen(myfilesToCopy[i].filePath));
+                int length = sprintf(fullPath,"./%s/%s",myfilesToCopy[i].baseDir,myfilesToCopy[i].filePath); 
+                char* outputPath = malloc(strlen(globalArgs.outDirName)+1+strlen(myfilesToCopy[i].filePath));
+                int length2 = sprintf(outputPath,"%s/%s",globalArgs.outDirName,myfilesToCopy[i].filePath);
+                char* dirToCreate = malloc(strlen(globalArgs.outDirName)+1+strlen(myfilesToCopy[i].dirPath));
+                int length3 = sprintf(dirToCreate,"%s/%s",globalArgs.outDirName,myfilesToCopy[i].dirPath);
+                //printf("\nCopying %s into %s\n",fullPath,outputPath);
+                if(globalArgs.verbosity == TRUE){
+                    //should check length..
 
 
-                printf("\nCopying %s into %s\n",fullPath,outputPath);
-                
+                    printf("\nCopying %s into %s\n",fullPath,outputPath);
+
+                }
+
+                //create folder if it does not exists
+                if(strcmp(myfilesToCopy[i].dirPath,"") >0){
+                    printf("create dir %s",myfilesToCopy[i].dirPath);
+                    mkdirp(dirToCreate, 0751);
+                }
+
+                copyfile(fullPath,outputPath);
+
             }
-            
-            //create folder if it does not exists
-            if(strcmp(myfilesToCopy[i].dirPath,"") >0){
-                printf("create dir %s",myfilesToCopy[i].dirPath);
-                mkdirp(dirToCreate, 0751);
-            }
-            
-            copyfile(fullPath,outputPath);
-            
         }
     }
     

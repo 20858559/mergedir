@@ -75,11 +75,8 @@
         char *summary1 = filesummary(fullPath);
         char *summary2 = filesummary(fullPath2);
      
-        if(strcmp(summary1,summary2) == 0){
-            printf("the two files %s %s are equals",fullPath,fullPath2);
-        }
-        else{
-            printf("the two files %s %s are differents",fullPath,fullPath2);
+        if(strcmp(summary1,summary2) != 0){
+                printf("Conflict DETECTED !! the two files %s %s are differents",fullPath,fullPath2);
         }
       
         
