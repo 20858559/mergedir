@@ -31,7 +31,9 @@ void  compareModificationDate (fileInfos_t *files, int nbFiles  );
       
 // If -m is chosen then the file with the most-recent modification-time should be copied to the output directory
 void  compareFileSize (fileInfos_t *files, int nbFiles  );
-    
+
+//compare file contents
+void  compareFileContents (fileInfos_t *files, int nbFiles  );
 
 
 // If -i then a subdirectory's name contains the indicated pattern, then it should be ignored.

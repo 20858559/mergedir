@@ -37,6 +37,7 @@ extern "C" {
         int compareMode;      /* -lmc option */
         int verbosity;              /* -v option */
         char *pattern;              /* -i option */
+        int ignore;
         
         char **inputDirs;          /* input files */
         int nbInputDirs;          /* # of input files */

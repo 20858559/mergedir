@@ -46,6 +46,13 @@ void copyfile(char in_filename[], char out_filename[])
         fclose(fp_in);
     if(fp_out != NULL)
         fclose(fp_out);
+    
+    //finally set modification date
+    struct utimbuf ubuf;
+    struct stat fin;
+    stat(in_filename,&fin);
+    ubuf.modtime = fin.st_mtime;
+    utime(out_filename,&ubuf);
 }
 
 /* taken from http://niallohiggins.com/2009/01/08/mkpath-mkdir-p-alike-in-c-for-unix/   */

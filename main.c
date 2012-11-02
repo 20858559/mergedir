@@ -76,6 +76,7 @@ void configureModes(int argc, char**argv){
         globalArgs.inputDirs = NULL;
         globalArgs.nbInputDirs = 0;
         globalArgs.outDirName = NULL;
+        globalArgs.ignore = FALSE;
 
  
         /*Get the list of options*/
@@ -114,6 +115,8 @@ void configureModes(int argc, char**argv){
                         break;
                     case 'i':
                         printf("-i option with value %s \n",optarg);
+                        globalArgs.pattern = optarg;
+                        globalArgs.ignore = TRUE;
                         break;
                         //assert only one of the exclusive modes
                     case 'c':

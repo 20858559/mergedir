@@ -123,6 +123,13 @@ int placeFile(char *filePath,char *baseDir, char *dirPath){
         for(int i=0;i<nbFilesToMerge;++i){
             //add the new value into the array
             for(int j=0;j<myFilesToMerge[i].nbFiles;++j){
+                
+                //if its ignored
+                if(globalArgs.ignore == TRUE && strstr(myFilesToMerge[i].files[j].filePath, globalArgs.pattern)){
+                    //skip
+                    return FALSE;
+                }
+                
                 if( strcmp(myFilesToMerge[i].files[j].filePath,tmpFileInfo.filePath) ==0){
                         //filepath equal => add to merge array
                         //printf("\n%s equals %s\n",myFilesToMerge[i].files[j].filePath,tmpFileInfo.filePath);
@@ -140,6 +147,11 @@ int placeFile(char *filePath,char *baseDir, char *dirPath){
     
     //if no files in files to copy just copy the file (initial)
     if( nbFilesToCopy == 0){
+        //if its ignored
+        if(globalArgs.ignore == TRUE && strstr(myfilesToCopy[nbFilesToCopy].filePath, globalArgs.pattern)){
+            //skip
+            return FALSE;
+        }
         myfilesToCopy = malloc(sizeof(fileInfos_t)*1);
         myfilesToCopy[nbFilesToCopy] = tmpFileInfo;
         nbFilesToCopy++;
@@ -152,6 +164,12 @@ int placeFile(char *filePath,char *baseDir, char *dirPath){
     
         //otherwise files to copy
         for(int i=0;i<nbFilesToCopy;++i){
+             //if its ignored
+            if(globalArgs.ignore == TRUE && strstr(myfilesToCopy[i].filePath, globalArgs.pattern)){
+                //skip
+                return FALSE;
+            }
+            
             if( strcmp(myfilesToCopy[i].filePath,tmpFileInfo.filePath) ==0){
                 //filepath equal => add to merge array
                 //printf("\n%s equals %s\n",myfilesToCopy[i].filePath,tmpFileInfo.filePath);
@@ -229,6 +247,8 @@ void merge(){
                 compareFileSize(myFilesToMerge[i].files,myFilesToMerge[i].nbFiles);
                 break;
             case MODE_SHOW_CONFLICTS:
+                //check contents
+                compareFileContents(myFilesToMerge[i].files,myFilesToMerge[i].nbFiles);
                 break;
                         
             

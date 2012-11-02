@@ -58,3 +58,30 @@
         printf("We chose the file %d",filePos);
 		   
     }
+    
+    void compareFileContents(fileInfos_t *files,int nbFiles){
+
+        off_t maxSize=0;
+        int filePos=0;
+        struct stat tmpStat;
+        //test with 2 files
+        
+        char* fullPath = malloc(strlen(files[0].baseDir)+1+strlen(files[0].filePath));
+        int length = sprintf(fullPath,"%s/%s",files[0].baseDir,files[0].filePath);
+        
+        char* fullPath2 = malloc(strlen(files[1].baseDir)+1+strlen(files[1].filePath));
+        int length2 = sprintf(fullPath2,"%s/%s",files[1].baseDir,files[1].filePath);
+
+        char *summary1 = filesummary(fullPath);
+        char *summary2 = filesummary(fullPath2);
+     
+        if(strcmp(summary1,summary2) == 0){
+            printf("the two files %s %s are equals",fullPath,fullPath2);
+        }
+        else{
+            printf("the two files %s %s are differents",fullPath,fullPath2);
+        }
+      
+        
+		   
+    }
