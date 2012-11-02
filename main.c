@@ -189,7 +189,7 @@ void configureModes(int argc, char**argv){
         
         //if not new create it
         if( stat(argv[argc-1],&s) == 0 ){
-            if( !(s.st_mode & S_IFDIR) ){
+            if( !S_ISDIR(s.st_mode ) ){
                 //not a directory..error
                 free(globalArgs.inputDirs);
                 free(globalArgs.outDirName);
