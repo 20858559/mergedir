@@ -14,7 +14,6 @@
 extern "C" {
 #endif
     
-#include "log.h"
 #include "file_headers.h"
 #include "globals.h"
 #include "sys_headers.h"

@@ -269,7 +269,7 @@ void copyFiles(){
                 mkdirp(dirToCreate, 0751);
             }
             
-            cp(outputPath,fullPath);
+            cp(fullPath,outputPath);
             
         }
     }

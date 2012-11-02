@@ -14,7 +14,6 @@ extern "C" {
 
     #include "globals.h"
     #include "sys_headers.h"
-    #include "log.h"
     #include "general_lib.h"
     
     /*Main function of our program*/
