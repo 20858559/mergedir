@@ -15,19 +15,24 @@ extern "C" {
     #include "globals.h"
     #include "sys_headers.h"
     #include "log.h"
+    #include "general_lib.h"
     
     /*Main function of our program*/
     void mergeDirectories();
     /*Get the list of files to process*/
-    void buildListOfInodesToCopy(char *dirName,int isNew);
+    void buildListOfInodesToCopy(char *dirName);
     /*Place the file in the right array*/
-    int placeFile(char *filePath,ino_t fileINode);
+    int placeFile(char *filePath,char *baseDir);
     /*Copy file info struct to array*/
     void copyInfoStructToArray(fileInfos_t f);
     /*Copy merge file struct to array and remove it from info array*/
     void copySingleMergeStructToArray(fileInfos_t f,fileInfos_t f_old);
     /**/
     void copyArrayMergeStructToArray(int i,fileInfos_t f);
+    /**/
+    void merge();
+    /***/
+    void copyFiles();
 
 
 #ifdef	__cplusplus

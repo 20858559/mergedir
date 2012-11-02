@@ -13,8 +13,10 @@ void mergeDirectories(){
     for(int i=0;i<globalArgs.nbInputDirs;++i){
         //build our list of files to be copied/compared
         currentDirectory = globalArgs.inputDirs[i];
-        buildListOfInodesToCopy(globalArgs.inputDirs[i],FALSE);
+        baseDirectory = globalArgs.inputDirs[i];
+        buildListOfInodesToCopy(globalArgs.inputDirs[i]);
     }
+    merge();
 }
 
 /**
@@ -22,22 +24,16 @@ void mergeDirectories(){
  * @param dirName the dirname
  * @param isNew false if first call true otherwise
  */
-void buildListOfInodesToCopy(char* dirName,int isNew){
+void buildListOfInodesToCopy(char* dirName){
     DIR* curDir = NULL;
     struct dirent *curEntry=NULL;
-    char  *curPath = NULL;
-    
+    char  curPath[PATH_MAX],*tmpPath=NULL;
+    const char *d_name ;
     
     //open the directory
     curDir = opendir(dirName);
-        
-        
-    //init path 
-    if(isNew == TRUE){
-        printf("%s",dirName);
-        curPath=malloc( (strlen(dirName) )* sizeof(char*));
-        strcpy(curPath,dirName);
-    }
+
+   
  
         
     //iterates
@@ -46,32 +42,40 @@ void buildListOfInodesToCopy(char* dirName,int isNew){
         if(strcmp(curEntry->d_name,".") == 0  || strcmp(curEntry->d_name, ".." ) == 0){
             continue;
         }
-                
-        //build the new path 
-        if(isNew == TRUE){
-            //have to add base_dir 
-            curPath = realloc(curPath, (strlen(curPath)+ strlen(curEntry->d_name) + 1) * sizeof(char)  );
-            strcat(curPath,"/");
-            strcat(curPath,curEntry->d_name);
-        }
-        else{
-            //only the filename
-            curPath = malloc( strlen(curEntry->d_name)   * sizeof(char)  );
-            strcpy(curPath,curEntry->d_name);
-        }
         
+        d_name = curEntry->d_name;
         //if directory..call itself
         if(curEntry->d_type == DT_DIR ){
-            currentDirectory = realloc(currentDirectory, (strlen(currentDirectory)+ strlen(curEntry->d_name) + 1) * sizeof(char)  );
-            strcat(currentDirectory,"/");
-            strcat(currentDirectory,curEntry->d_name);
-            buildListOfInodesToCopy(currentDirectory,TRUE);
+            int path_length;
+            char path[PATH_MAX];
+            //printf("%s",d_name);
+            path_length = snprintf (path, PATH_MAX,"%s/%s", dirName, d_name);
+            //call recursively
+            buildListOfInodesToCopy(path);
+            if (path_length >= PATH_MAX) {
+                fprintf (stderr, "Maximum path length was exceeded.\n");
+                exit (EXIT_FAILURE);
+            }
         }
         else{
+
             //create our struct
-            
+            //printf ("File name %s Dirname %s\n", d_name,dirName);
+            //create short path
+            tmpPath = strtok(dirName,"/");
+            strcpy(curPath,"");
+            while(tmpPath!=NULL){
+                if(strcmp(tmpPath,baseDirectory)!=0){
+                    strcat(curPath,tmpPath);
+                    strcat(curPath,"/");
+                    
+                }
+                tmpPath = strtok( NULL, "/" );
+            }
+            //finally add the d name
+            strcat(curPath,d_name);
             //check if we already have the file (=> merge list) or not (=>copy list)
-            placeFile(curPath,curEntry->d_ino);
+            placeFile(curPath,baseDirectory);
             
         }
         
@@ -81,24 +85,23 @@ void buildListOfInodesToCopy(char* dirName,int isNew){
     }
     
     
-    free(curPath);
+    //free(curPath);
     closedir (curDir);
     
 }
 
-int placeFile(char *filePath,ino_t fileINode){
+int placeFile(char *filePath,char *baseDir){
     //create our entry
     fileInfos_t tmpFileInfo;
     //to resize arrays
+        
     
-    filesToMerge_t *tmpMerge;
-    
-    
-    tmpFileInfo.fileInode = fileINode;
+    tmpFileInfo.baseDir = malloc(strlen(baseDirectory)*sizeof(char));
     tmpFileInfo.filePath = malloc(strlen(filePath)*sizeof(char));
     strcpy(tmpFileInfo.filePath,filePath);
+    strcpy(tmpFileInfo.baseDir,baseDir);
     
-    printf("\nProcessing: %s |%lu \n",tmpFileInfo.filePath,(unsigned long)tmpFileInfo.fileInode);
+    //printf("\nProcessing: %s |%s \n",tmpFileInfo.filePath,tmpFileInfo.baseDir);
     
     //explore files to merge array first
     if(nbFilesToMerge >0 ){
@@ -107,13 +110,13 @@ int placeFile(char *filePath,ino_t fileINode){
             for(int j=0;j<myFilesToMerge[i].nbFiles;++j){
                 if( strcmp(myFilesToMerge[i].files[j].filePath,tmpFileInfo.filePath) ==0){
                         //filepath equal => add to merge array
-                        printf("\n%s equals %s\n",myFilesToMerge[i].files[j].filePath,tmpFileInfo.filePath);
+                        //printf("\n%s equals %s\n",myFilesToMerge[i].files[j].filePath,tmpFileInfo.filePath);
                         copyArrayMergeStructToArray(i,tmpFileInfo);
                         return TRUE;
                 }
                 
             }
-            puts("======= END OF PROCESSING MERGED");
+            //puts("======= END OF PROCESSING MERGED");
             return TRUE;
         }
     }
@@ -125,7 +128,7 @@ int placeFile(char *filePath,ino_t fileINode){
         myfilesToCopy = malloc(sizeof(fileInfos_t)*1);
         myfilesToCopy[nbFilesToCopy] = tmpFileInfo;
         nbFilesToCopy++;
-        printf("\nAdding #1: %s\n",tmpFileInfo.filePath);
+        //printf("\nAdding #1: %s\n",tmpFileInfo.filePath);
         return TRUE;
     }
     else{
@@ -136,19 +139,19 @@ int placeFile(char *filePath,ino_t fileINode){
         for(int i=0;i<nbFilesToCopy;++i){
             if( strcmp(myfilesToCopy[i].filePath,tmpFileInfo.filePath) ==0){
                 //filepath equal => add to merge array
-                printf("\n%s equals %s\n",myfilesToCopy[i].filePath,tmpFileInfo.filePath);
+                //printf("\n%s equals %s\n",myfilesToCopy[i].filePath,tmpFileInfo.filePath);
                 //add into the merge and remove copy entry
                 copySingleMergeStructToArray(tmpFileInfo,myfilesToCopy[i]);
                 //free(myfilesToCopy->filePath);
                 memset( myfilesToCopy, '\0', sizeof( myfilesToCopy[i] ) );
  
-                puts("======= END OF PROCESSING");
+                //puts("======= END OF PROCESSING");
                 return TRUE;
             }
             else{
                 //new file to copy
                 copyInfoStructToArray(tmpFileInfo);
-                puts("======= END OF PROCESSING");
+                //puts("======= END OF PROCESSING");
                 return TRUE;
             }
                     
@@ -164,20 +167,7 @@ int placeFile(char *filePath,ino_t fileINode){
     
 }
 
-void copyInfoStructToArray(fileInfos_t tmpFileInfo){
-    fileInfos_t *tmpInfos;
-    tmpInfos = (fileInfos_t*) realloc(myfilesToCopy, (nbFilesToCopy+1) * sizeof(fileInfos_t)  );
-    if ( tmpInfos != NULL ){
-            myfilesToCopy = tmpInfos;
-            myfilesToCopy[nbFilesToCopy] = tmpFileInfo;
-            printf("\nAdding #2:  %s\n",tmpFileInfo.filePath);
-    }
-    else{ 
-        printf("Error allocating memory! for result array\n");
-        exit(EXIT_FAILURE);
-    }
-    nbFilesToCopy++;
-}
+
 
 void copySingleMergeStructToArray(fileInfos_t tmpFileInfo,fileInfos_t tmpFileInfo_old){
     //init the new structure
@@ -202,16 +192,65 @@ void copyArrayMergeStructToArray(int i,fileInfos_t tmpFileInfo){
             myFilesToMerge[i].files = tmpInfos;
             myFilesToMerge[i].files[myFilesToMerge[i].nbFiles] = tmpFileInfo;
             
-            printf("\nAdding #3:  %s\n",myFilesToMerge[i].files[myFilesToMerge[i].nbFiles].filePath);
+            //printf("\nAdding #3:  %s\n",myFilesToMerge[i].files[myFilesToMerge[i].nbFiles].filePath);
             myFilesToMerge[i].nbFiles++;
     }
     else{ 
-        printf("Error allocating memory! for result array\n");
+        fprintf (stderr,"Error allocating memory! for result array\n");
         exit(EXIT_FAILURE);
     }
 }
 
 
+void merge(){
+    for(int i=0;i<nbFilesToMerge;++i){
+        
+        //switch mode to execute
+        switch(globalArgs.compareMode){
+            case MODE_COMPARE_DATE:
+                compareModificationDate(myFilesToMerge[i].files,myFilesToMerge[i].nbFiles);
+                break;
+            case MODE_COMPARE_SIZE:
+                compareFileSize(myFilesToMerge[i].files,myFilesToMerge[i].nbFiles);
+                break;
+            case MODE_SHOW_CONFLICTS:
+                break;
+                        
+            
+        }
+    }
+    //dont copy if mode conflict
+    if(globalArgs.compareMode != MODE_SHOW_CONFLICTS){
+        copyFiles();
+    }
+    
+}
+/**
+ * Just iterates over our array of files to copy
+ */
 void copyFiles(){
+    for(int i=0;i<nbFilesToCopy;++i){
+        //detect the null entries
+        if(myfilesToCopy[i].filePath!=NULL){
+            
+            char* fullPath = malloc(strlen(myfilesToCopy[i].baseDir)+4+strlen(myfilesToCopy[i].filePath));
+            int length = sprintf(fullPath,"./%s/%s",myfilesToCopy[i].baseDir,myfilesToCopy[i].filePath); 
+            char* outputPath = malloc(strlen(globalArgs.outDirName)+1+strlen(myfilesToCopy[i].filePath));
+            int length2 = sprintf(outputPath,"%s/%s",globalArgs.outDirName,myfilesToCopy[i].filePath); 
+            //printf("\nCopying %s into %s\n",fullPath,outputPath);
+            if(globalArgs.verbosity == TRUE){
+                //should check length..
+
+
+                printf("\nCopying %s into %s\n",fullPath,outputPath);
+                
+            }
+            
+            //create folder if it does not exists
+            mkdirp(outputPath, 0751);
+            cp(outputPath,fullPath);
+            
+        }
+    }
     
 }

@@ -47,7 +47,7 @@ int main(int argc, char** argv) {
     //free globals
     //print debug
     
-    print_debug();
+    //print_debug();
     free(myfilesToCopy);
     free(myFilesToMerge);
     
@@ -109,6 +109,7 @@ void configureModes(int argc, char**argv){
                         break;
                     case 'v':
                         printf("-v option \n");
+                        globalArgs.verbosity = TRUE;
                         break;
                     case 'i':
                         printf("-i option with value %s \n",optarg);
@@ -240,7 +241,7 @@ void print_debug(){
     if(nbFilesToMerge>0){
         for(int i=0;i<nbFilesToMerge;++i){
             for(int j=0;j<myFilesToMerge[i].nbFiles;++j){
-                printf("\n-%s |%lu \n",myFilesToMerge[i].files[j].filePath,(unsigned long)myFilesToMerge[i].files[j].fileInode);
+                printf("\n-%s |%s \n",myFilesToMerge[i].files[j].baseDir,myFilesToMerge[i].files[j].filePath);
             }
         }
     }

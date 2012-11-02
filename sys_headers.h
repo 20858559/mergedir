@@ -21,6 +21,9 @@ extern "C" {
 #include <getopt.h>
 #include <unistd.h>
 #include <string.h>
+#include <limits.h>
+#include <fcntl.h>
+#include <errno.h>
 
 
 /**

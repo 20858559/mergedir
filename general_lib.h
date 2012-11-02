@@ -11,8 +11,14 @@
 #ifdef	__cplusplus
 extern "C" {
 #endif
+#include "sys_headers.h"
+#include "globals.h"
 
-#include <stdio.h>
+
+    
+void copyInfoStructToArray(fileInfos_t tmpFileInfo);
+int cp(const char *to, const char *from);
+int mkdirp(const char *pathname, mode_t mode);
 
 
 

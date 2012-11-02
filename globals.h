@@ -43,10 +43,10 @@ extern "C" {
     } globalArgs;
     
     /**
-     * Inodes + filepath
+     * basedir + short filepath
      */
     typedef struct fileInfos {
-        ino_t fileInode;
+        char* baseDir;
         char * filePath;
     }fileInfos_t;
     
@@ -76,11 +76,7 @@ extern "C" {
 	unsigned int st_size;
      }compareFile_t;
 
-     ///Compare Modification time for -m
-     typedef struct compareModi{
-	unsigned int st_ino;
-	unsigned int st_mtime;
-     }compareModi_t;
+     
 
 
 #ifdef	__cplusplus
