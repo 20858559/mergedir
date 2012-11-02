@@ -66,11 +66,6 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mergedir_home: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mergedir_home ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
-${OBJECTDIR}/globals.o: globals.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -g -Werror -std=c99 -MMD -MP -MF $@.d -o ${OBJECTDIR}/globals.o globals.c
-
 ${OBJECTDIR}/file_summary.o: file_summary.c 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d

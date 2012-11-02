@@ -8,7 +8,6 @@
       <itemPath>file_summary.h</itemPath>
       <itemPath>general_lib.h</itemPath>
       <itemPath>globals.h</itemPath>
-      <itemPath>log.h</itemPath>
       <itemPath>merge_dir.h</itemPath>
       <itemPath>options_lib.h</itemPath>
       <itemPath>sys_headers.h</itemPath>
@@ -22,8 +21,6 @@
                    projectFiles="true">
       <itemPath>file_summary.c</itemPath>
       <itemPath>general_lib.c</itemPath>
-      <itemPath>globals.c</itemPath>
-      <itemPath>log.c</itemPath>
       <itemPath>main.c</itemPath>
       <itemPath>merge_dir.c</itemPath>
       <itemPath>options_lib.c</itemPath>

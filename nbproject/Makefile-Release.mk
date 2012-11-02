@@ -35,8 +35,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/log.o \
-	${OBJECTDIR}/globals.o \
 	${OBJECTDIR}/file_summary.o \
 	${OBJECTDIR}/options_lib.o \
 	${OBJECTDIR}/merge_dir.o \
@@ -67,16 +65,6 @@ LDLIBSOPTIONS=
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mergedir_home: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mergedir_home ${OBJECTFILES} ${LDLIBSOPTIONS} 
-
-${OBJECTDIR}/log.o: log.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -O2 -std=c99 -MMD -MP -MF $@.d -o ${OBJECTDIR}/log.o log.c
-
-${OBJECTDIR}/globals.o: globals.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -O2 -std=c99 -MMD -MP -MF $@.d -o ${OBJECTDIR}/globals.o globals.c
 
 ${OBJECTDIR}/file_summary.o: file_summary.c 
 	${MKDIR} -p ${OBJECTDIR}

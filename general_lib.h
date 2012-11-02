@@ -17,7 +17,7 @@ extern "C" {
 
     
 void copyInfoStructToArray(fileInfos_t tmpFileInfo);
-int cp(const char *to, const char *from);
+void copyfile(char in_filename[], char out_filename[]);
 int mkdirp(const char *pathname, mode_t mode);
 
 
