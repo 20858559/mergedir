@@ -21,6 +21,9 @@ extern "C" {
     #define MODE_COMPARE_SIZE 1 
     #define MODE_SHOW_CONFLICTS 2
 
+    /*MaX path size*/
+    #define PATH_MAX 255
+
     /*Default compare mode*/
     #define DEFAULT_COMPARE_MODE MODE_COMPARE_DATE
 
