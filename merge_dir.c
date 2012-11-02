@@ -33,7 +33,6 @@ void buildListOfInodesToCopy(char* dirName){
     //open the directory
     curDir = opendir(dirName);
 
-   
  
         
     //iterates
@@ -50,7 +49,6 @@ void buildListOfInodesToCopy(char* dirName){
         if(  S_ISDIR(curEntry->d_type) ){
             int path_length;
             char path[PATH_MAX];
-            //printf("%s",d_name);
             path_length = snprintf (path, PATH_MAX,"%s/%s", dirName, d_name);
             //call recursively
             buildListOfInodesToCopy(path);
@@ -125,7 +123,9 @@ int placeFile(char *filePath,char *baseDir, char *dirPath){
             for(int j=0;j<myFilesToMerge[i].nbFiles;++j){
                 
                 //if its ignored
-                if(globalArgs.ignore == TRUE && strstr(myFilesToMerge[i].files[j].filePath, globalArgs.pattern)){
+                if(globalArgs.ignore == TRUE && strstr(myFilesToMerge[i].files[j].dirPath, globalArgs.pattern) != NULL){
+                        printf("%s was ignored",myFilesToMerge[i].files[j].filePath);
+
                     //skip
                     return FALSE;
                 }
@@ -148,8 +148,10 @@ int placeFile(char *filePath,char *baseDir, char *dirPath){
     //if no files in files to copy just copy the file (initial)
     if( nbFilesToCopy == 0){
         //if its ignored
-        if(globalArgs.ignore == TRUE && strstr(myfilesToCopy[nbFilesToCopy].filePath, globalArgs.pattern)){
+        //printf("%s %s ss",tmpFileInfo.dirPath,strstr( tmpFileInfo.dirPath, globalArgs.pattern));
+        if(globalArgs.ignore == TRUE && strstr(tmpFileInfo.dirPath, globalArgs.pattern) != NULL){
             //skip
+            printf("%s was ignored",tmpFileInfo.filePath);
             return FALSE;
         }
         myfilesToCopy = malloc(sizeof(fileInfos_t)*1);
@@ -165,8 +167,9 @@ int placeFile(char *filePath,char *baseDir, char *dirPath){
         //otherwise files to copy
         for(int i=0;i<nbFilesToCopy;++i){
              //if its ignored
-            if(globalArgs.ignore == TRUE && strstr(myfilesToCopy[i].filePath, globalArgs.pattern)){
+            if(globalArgs.ignore == TRUE && strstr(myfilesToCopy[i].dirPath, globalArgs.pattern) != NULL){
                 //skip
+                printf("%s was ignored",myfilesToCopy[i].filePath);
                 return FALSE;
             }
             
@@ -236,6 +239,7 @@ void copyArrayMergeStructToArray(int i,fileInfos_t tmpFileInfo){
 
 
 void merge(){
+    
     for(int i=0;i<nbFilesToMerge;++i){
         
         //switch mode to execute
@@ -254,6 +258,7 @@ void merge(){
             
         }
     }
+    
     //dont copy if mode conflict
     if(globalArgs.compareMode != MODE_SHOW_CONFLICTS){
         copyFiles();
@@ -264,6 +269,7 @@ void merge(){
  * Just iterates over our array of files to copy
  */
 void copyFiles(){
+    
     if(globalArgs.compareMode != MODE_SHOW_CONFLICTS ){
         for(int i=0;i<nbFilesToCopy;++i){
             //detect the null entries

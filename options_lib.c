@@ -20,7 +20,7 @@
                 exit(EXIT_FAILURE);
             }
             else{
-                printf("Stat ok");
+                //printf("Stat ok");
             }
         
              
@@ -30,7 +30,7 @@
             }
         }
         
-        printf("We chose the file %s",files[filePos].baseDir);
+        //printf("We chose the file %s",files[filePos].baseDir);
 	//update the copy array
         copyInfoStructToArray(files[filePos]);
         
@@ -54,8 +54,8 @@
                 filePos = i;
             }
         }
-        
-        printf("We chose the file %d",filePos);
+        copyInfoStructToArray(files[filePos]);
+       // printf("We chose the file %s",files[filePos]);
 		   
     }
     

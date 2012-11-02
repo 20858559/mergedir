@@ -68,6 +68,7 @@ void configureModes(int argc, char**argv){
         int hasExclusiveMode = FALSE;
         int nbDirs = 0;
         struct stat s;
+        extern char *optarg;
                 
         /*Init global struct with 0 values*/
         globalArgs.compareMode = DEFAULT_COMPARE_MODE;
@@ -115,7 +116,10 @@ void configureModes(int argc, char**argv){
                         break;
                     case 'i':
                         printf("-i option with value %s \n",optarg);
-                        globalArgs.pattern = optarg;
+                        globalArgs.pattern = malloc(sizeof(optarg));
+                        strcpy(globalArgs.pattern, optarg);
+                        printf("%s",globalArgs.pattern);
+                        
                         globalArgs.ignore = TRUE;
                         break;
                         //assert only one of the exclusive modes

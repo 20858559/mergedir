@@ -27,7 +27,7 @@ extern "C" {
     /*Default compare mode*/
     #define DEFAULT_COMPARE_MODE MODE_COMPARE_DATE
 
-    #define DEFAULT_OPTION_STRING "lmvicvh?"
+    #define DEFAULT_OPTION_STRING "lmvi:cvh?"
 
     #include "file_headers.h"
   
