@@ -161,7 +161,7 @@ void configureModes(int argc, char**argv){
             
             if( stat(argv[i],&s) == 0 ){
                 /*path does not exists*/
-                if( !(s.st_mode & S_IFDIR) ){
+                if( !S_ISDIR(s.st_mode ) ){
                     /*Not a directory*/
                     free(globalArgs.inputDirs);
                     fprintf(stderr, "\n%s should be a directory\n\n",argv[i]);
