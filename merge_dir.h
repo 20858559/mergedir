@@ -22,7 +22,7 @@ extern "C" {
     /*Get the list of files to process*/
     void buildListOfInodesToCopy(char *dirName);
     /*Place the file in the right array*/
-    int placeFile(char *filePath,char *baseDir);
+    int placeFile(char *filePath,char *baseDir,char *dirPath);
     /*Copy file info struct to array*/
     void copyInfoStructToArray(fileInfos_t f);
     /*Copy merge file struct to array and remove it from info array*/

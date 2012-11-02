@@ -27,7 +27,7 @@ void mergeDirectories(){
 void buildListOfInodesToCopy(char* dirName){
     DIR* curDir = NULL;
     struct dirent *curEntry=NULL;
-    char  curPath[PATH_MAX],*tmpPath=NULL;
+    char  curPath[PATH_MAX],*tmpPath=NULL,*dirPath = NULL;
     const char *d_name ;
     
     //open the directory
@@ -73,9 +73,15 @@ void buildListOfInodesToCopy(char* dirName){
                 tmpPath = strtok( NULL, "/" );
             }
             //finally add the d name
+            
+            
+            dirPath = strdup(curPath);
+            //dirPath[strlen(dirPath)-1] = '\0';
             strcat(curPath,d_name);
+            
             //check if we already have the file (=> merge list) or not (=>copy list)
-            placeFile(curPath,baseDirectory);
+            placeFile(curPath,baseDirectory,dirPath);
+            free(dirPath);
             
         }
         
@@ -90,7 +96,7 @@ void buildListOfInodesToCopy(char* dirName){
     
 }
 
-int placeFile(char *filePath,char *baseDir){
+int placeFile(char *filePath,char *baseDir, char *dirPath){
     //create our entry
     fileInfos_t tmpFileInfo;
     //to resize arrays
@@ -98,8 +104,14 @@ int placeFile(char *filePath,char *baseDir){
     
     tmpFileInfo.baseDir = malloc(strlen(baseDirectory)*sizeof(char));
     tmpFileInfo.filePath = malloc(strlen(filePath)*sizeof(char));
+    tmpFileInfo.dirPath = malloc(strlen(dirPath)*sizeof(char));
     strcpy(tmpFileInfo.filePath,filePath);
     strcpy(tmpFileInfo.baseDir,baseDir);
+    strcpy(tmpFileInfo.dirPath,dirPath);
+    
+    
+    
+    //
     
     //printf("\nProcessing: %s |%s \n",tmpFileInfo.filePath,tmpFileInfo.baseDir);
     
@@ -236,7 +248,9 @@ void copyFiles(){
             char* fullPath = malloc(strlen(myfilesToCopy[i].baseDir)+4+strlen(myfilesToCopy[i].filePath));
             int length = sprintf(fullPath,"./%s/%s",myfilesToCopy[i].baseDir,myfilesToCopy[i].filePath); 
             char* outputPath = malloc(strlen(globalArgs.outDirName)+1+strlen(myfilesToCopy[i].filePath));
-            int length2 = sprintf(outputPath,"%s/%s",globalArgs.outDirName,myfilesToCopy[i].filePath); 
+            int length2 = sprintf(outputPath,"%s/%s",globalArgs.outDirName,myfilesToCopy[i].filePath);
+            char* dirToCreate = malloc(strlen(globalArgs.outDirName)+1+strlen(myfilesToCopy[i].dirPath));
+            int length3 = sprintf(dirToCreate,"%s/%s",globalArgs.outDirName,myfilesToCopy[i].dirPath);
             //printf("\nCopying %s into %s\n",fullPath,outputPath);
             if(globalArgs.verbosity == TRUE){
                 //should check length..
@@ -247,7 +261,11 @@ void copyFiles(){
             }
             
             //create folder if it does not exists
-            mkdirp(outputPath, 0751);
+            if(strcmp(myfilesToCopy[i].dirPath,"") >0){
+                printf("create dir %s",myfilesToCopy[i].dirPath);
+                mkdirp(dirToCreate, 0751);
+            }
+            
             cp(outputPath,fullPath);
             
         }

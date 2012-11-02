@@ -47,7 +47,8 @@ extern "C" {
      */
     typedef struct fileInfos {
         char* baseDir;
-        char * filePath;
+        char* filePath;
+        char* dirPath;
     }fileInfos_t;
     
     /**
