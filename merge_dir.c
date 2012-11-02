@@ -27,7 +27,7 @@ void mergeDirectories(){
 void buildListOfInodesToCopy(char* dirName){
     DIR* curDir = NULL;
     struct dirent *curEntry=NULL;
-    char  curPath[PATH_MAX],*tmpPath=NULL,*dirPath = NULL;
+    char  curPath[PATH_MAX],*tmpPath=NULL;
     const char *d_name ;
     
     //open the directory
@@ -45,7 +45,7 @@ void buildListOfInodesToCopy(char* dirName){
         
         d_name = curEntry->d_name;
         //if directory..call itself
-        if(curEntry->d_type == DT_DIR ){
+        if(  (curEntry->d_type & S_IFMT) == S_IFDIR ){
             int path_length;
             char path[PATH_MAX];
             //printf("%s",d_name);
@@ -74,14 +74,15 @@ void buildListOfInodesToCopy(char* dirName){
             }
             //finally add the d name
             
-            
-            dirPath = strdup(curPath);
+            char dirPath[strlen(curPath)+1]; //use c99 VLAs
+            strcpy(dirPath, curPath);
+            //dirPath = strdup(curPath);
             //dirPath[strlen(dirPath)-1] = '\0';
             strcat(curPath,d_name);
             
             //check if we already have the file (=> merge list) or not (=>copy list)
             placeFile(curPath,baseDirectory,dirPath);
-            free(dirPath);
+            //free(dirPath);
             
         }
         
