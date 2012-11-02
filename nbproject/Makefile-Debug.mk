@@ -21,8 +21,8 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=GNU-MacOSX
-CND_DLIB_EXT=dylib
+CND_PLATFORM=GNU-Linux-x86
+CND_DLIB_EXT=so
 CND_CONF=Debug
 CND_DISTDIR=dist
 CND_BUILDDIR=build
@@ -59,31 +59,31 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mergedir_home
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mergedir
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mergedir_home: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mergedir: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mergedir_home ${OBJECTFILES} ${LDLIBSOPTIONS} 
+	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mergedir ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/options_lib.o: options_lib.c 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.c) -g -Werror -std=c99 -MMD -MP -MF $@.d -o ${OBJECTDIR}/options_lib.o options_lib.c
+	$(COMPILE.c) -O2 -Werror -std=c99 -MMD -MP -MF $@.d -o ${OBJECTDIR}/options_lib.o options_lib.c
 
 ${OBJECTDIR}/merge_dir.o: merge_dir.c 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.c) -g -Werror -std=c99 -MMD -MP -MF $@.d -o ${OBJECTDIR}/merge_dir.o merge_dir.c
+	$(COMPILE.c) -O2 -Werror -std=c99 -MMD -MP -MF $@.d -o ${OBJECTDIR}/merge_dir.o merge_dir.c
 
 ${OBJECTDIR}/main.o: main.c 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.c) -g -Werror -std=c99 -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.c
+	$(COMPILE.c) -O2 -Werror -std=c99 -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.c
 
 ${OBJECTDIR}/general_lib.o: general_lib.c 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.c) -g -Werror -std=c99 -MMD -MP -MF $@.d -o ${OBJECTDIR}/general_lib.o general_lib.c
+	$(COMPILE.c) -O2 -Werror -std=c99 -MMD -MP -MF $@.d -o ${OBJECTDIR}/general_lib.o general_lib.c
 
 # Subprojects
 .build-subprojects:
@@ -91,7 +91,7 @@ ${OBJECTDIR}/general_lib.o: general_lib.c
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mergedir_home
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mergedir
 
 # Subprojects
 .clean-subprojects:
