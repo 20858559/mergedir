@@ -44,8 +44,10 @@ void buildListOfInodesToCopy(char* dirName){
         }
         
         d_name = curEntry->d_name;
+    
+                
         //if directory..call itself
-        if(  (curEntry->d_type & S_IFMT) == S_IFDIR ){
+        if(  S_ISDIR(curEntry->d_type) ){
             int path_length;
             char path[PATH_MAX];
             //printf("%s",d_name);
