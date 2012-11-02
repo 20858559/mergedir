@@ -17,7 +17,6 @@ extern "C" {
 #include <ctype.h>
 #include <dirent.h>
 
-#include "file_summary.h"
 
 #ifdef	__cplusplus
 }

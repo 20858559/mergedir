@@ -35,7 +35,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/file_summary.o \
 	${OBJECTDIR}/options_lib.o \
 	${OBJECTDIR}/merge_dir.o \
 	${OBJECTDIR}/main.o \
@@ -65,11 +64,6 @@ LDLIBSOPTIONS=
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mergedir_home: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/mergedir_home ${OBJECTFILES} ${LDLIBSOPTIONS} 
-
-${OBJECTDIR}/file_summary.o: file_summary.c 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.c) -g -Werror -std=c99 -MMD -MP -MF $@.d -o ${OBJECTDIR}/file_summary.o file_summary.c
 
 ${OBJECTDIR}/options_lib.o: options_lib.c 
 	${MKDIR} -p ${OBJECTDIR}

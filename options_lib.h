@@ -18,7 +18,7 @@ extern "C" {
 #include "globals.h"
 #include "sys_headers.h"
 #include "general_lib.h"
-    
+
 
 /**
  * check if two file_path/file_name are identical
@@ -35,9 +35,9 @@ void  compareFileSize (fileInfos_t *files, int nbFiles  );
 //compare file contents
 void  compareFileContents (fileInfos_t *files, int nbFiles  );
 
+char *filesummary(char *filename);
 
-// If -i then a subdirectory's name contains the indicated pattern, then it should be ignored.
-void pattern ( ) ;
+
 
 #ifdef	__cplusplus
 }
